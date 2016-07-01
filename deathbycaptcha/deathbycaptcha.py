@@ -365,17 +365,14 @@ class SocketClient(Client):
         data['captcha'] = cid
         return not self._call('remove', data).get('captcha')
 
-if '__main__' == __name__:
-    import sys
-
-    # Put your DBC username & password here:
-    #client = HttpClient(sys.argv[1], sys.argv[2])
-    client = SocketClient(sys.argv[1], sys.argv[2])
+def main(image):
+    #Put your DBC username & password here:
+    client = SocketClient('username', 'password')
     client.is_verbose = True
 
     print 'Your balance is %s US cents' % client.get_balance()
 
-    for fn in sys.argv[3:]:
+    for fn in image:
         try:
             # Put your CAPTCHA image file name or file-like object, and optional
             # solving timeout (in seconds) here:
@@ -393,3 +390,7 @@ if '__main__' == __name__:
                 client.report(captcha['captcha'])
             except Exception, e:
                 sys.stderr.write('Failed reporting CAPTCHA: %s\n' % (e, ))
+
+if '__main__' == __name__:
+	import sys
+	main(sys.argv[1:])
