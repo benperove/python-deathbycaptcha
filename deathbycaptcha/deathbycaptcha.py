@@ -41,6 +41,9 @@ HTTP_RESPONSE_TYPE = 'application/json'
 SOCKET_HOST = 'api.deathbycaptcha.com'
 SOCKET_PORTS = range(8123, 8131)
 
+username = ''
+password = ''
+
 class AccessDeniedException(Exception):
     pass
 
@@ -367,7 +370,8 @@ class SocketClient(Client):
 
 def main(image):
     #Put your DBC username & password here:
-    client = SocketClient('username', 'password')
+    #client = HttpClient(sys.argv[1], sys.argv[2])
+    client = SocketClient(username, password)
     client.is_verbose = True
 
     print 'Your balance is %s US cents' % client.get_balance()
